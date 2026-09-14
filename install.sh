@@ -12,16 +12,16 @@ echo " |___/\___|_|\___|_| |_|\___|"
 echo "       selene :3 installer   "
 echo -e "\033[0m"
 
-echo "[*] Preparando instalacao..."
+echo "[*] Preparing installation..."
 mkdir -p "$INSTALL_DIR"
 mkdir -p "$BIN_DIR"
 
 if [ -f "./selene" ]; then
     cp ./selene "$INSTALL_DIR/selene"
 else
-    echo "[*] Baixando binario compilado..."
-    curl -fSL "https://raw.githubusercontent.com/yrozxm/Selene/main/selene" -o "$INSTALL_DIR/selene" 2>/dev/null || {
-        echo "[-] Nao foi possivel baixar o binario remoto. Certifique-se de compilar localmente ou configurar a URL do release."
+    echo "[*] Downloading selene..."
+    curl -fSL "https://raw.githubusercontent.com/Selene-External/Selene/main/selene" -o "$INSTALL_DIR/selene" 2>/dev/null || {
+        echo "[-] Failed to download selene."
     }
 fi
 
@@ -47,6 +47,6 @@ EOF
 chmod +x "$BIN_DIR/selene"
 
 echo ""
-echo -e "\033[1;32m[+] Selene instalado com sucesso em $INSTALL_DIR!\033[0m"
-echo -e "[*] Para iniciar em qualquer terminal: \033[1;36mselene\033[0m"
-echo -e "[*] No jogo, pressione \033[1;35mInsert\033[0m para abrir o menu."
+echo -e "\033[1;32m[+] Selene installed successfully in $INSTALL_DIR!\033[0m"
+echo -e "[*] To start in any terminal: \033[1;36mselene\033[0m"
+echo -e "[*] In-game, press \033[1;35mInsert\033[0m to open menu."
