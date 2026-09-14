@@ -35,8 +35,8 @@ PTRACE_SCOPE=$(cat /proc/sys/kernel/yama/ptrace_scope 2>/dev/null || echo "0")
 HAS_CAP=$(getcap "$INSTALL_DIR/selene" 2>/dev/null | grep -q "cap_sys_ptrace" && echo "1" || echo "0")
 
 if [ "$PTRACE_SCOPE" != "0" ] && [ "$HAS_CAP" != "1" ]; then
-    echo -e "\033[1;33m[!] Yama ptrace_scope está ativo ($PTRACE_SCOPE).\033[0m"
-    echo -e "[*] Executando comando para liberar leitura de memoria externa..."
+    echo -e "\033[1;33m[!] ptrace_scope is active ($PTRACE_SCOPE).\033[0m"
+    echo -e "[*] Setting ptrace capability..."
     sudo setcap cap_sys_ptrace=eip "$INSTALL_DIR/selene" 2>/dev/null || echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope >/dev/null 2>&1 || true
 fi
 
