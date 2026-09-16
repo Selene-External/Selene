@@ -14,6 +14,9 @@ echo -e "\033[0m"
 
 echo "[*] Preparing installation..."
 mkdir -p "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR/dump"
+mkdir -p "$INSTALL_DIR/configs"
+mkdir -p "$INSTALL_DIR/scripts"
 mkdir -p "$BIN_DIR"
 
 if [ -f "./selene" ]; then
