@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$DIR"
+INSTALL_DIR="$HOME/.local/share/selene"
+cd "$INSTALL_DIR" || {
+    echo "[!] Selene installation not found at $INSTALL_DIR. Please run the install script first."
+    exit 1
+}
 
 REPO="Selene-External/Selene"
 DOWNLOAD_URL="https://raw.githubusercontent.com/$REPO/main/selene"
