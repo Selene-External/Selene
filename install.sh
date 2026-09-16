@@ -25,23 +25,18 @@ if [ -f "./selene" ]; then
         cp -r ./assets "$INSTALL_DIR/"
     fi
 else
-    echo "[*] Downloading selene and assets..."
-    REPO="Selene-External/Selene"
-    ZIP_URL="https://github.com/$REPO/archive/refs/heads/main.zip"
-    
-    curl -fSL -o "$INSTALL_DIR/selene_install.zip" "$ZIP_URL" 2>/dev/null || {
+    echo "[*] Downloading selene..."
+    curl -fSL "https://raw.githubusercontent.com/Selene-External/Selene/main/selene" -o "$INSTALL_DIR/selene" 2>/dev/null || {
         echo "[-] Failed to download selene."
     }
     
-    if [ -f "$INSTALL_DIR/selene_install.zip" ]; then
+    echo "[*] Downloading assets..."
+    curl -fSL "https://raw.githubusercontent.com/Selene-External/Selene/main/assets.tar.gz" -o "$INSTALL_DIR/assets.tar.gz" 2>/dev/null || true
+    
+    if [ -f "$INSTALL_DIR/assets.tar.gz" ]; then
         cd "$INSTALL_DIR"
-        unzip -q -o selene_install.zip "Selene-main/selene" -j -d .
-        unzip -q -o selene_install.zip "Selene-main/assets/*" -d .
-        if [ -d "Selene-main/assets" ]; then
-            cp -rf Selene-main/assets/* assets/ 2>/dev/null || true
-            rm -rf Selene-main
-        fi
-        rm -f selene_install.zip
+        tar -xzf assets.tar.gz
+        rm -f assets.tar.gz
         cd - > /dev/null
     fi
 fi
