@@ -21,11 +21,29 @@ mkdir -p "$BIN_DIR"
 
 if [ -f "./selene" ]; then
     cp ./selene "$INSTALL_DIR/selene"
+    if [ -d "./assets" ]; then
+        cp -r ./assets "$INSTALL_DIR/"
+    fi
 else
-    echo "[*] Downloading selene..."
-    curl -fSL "https://raw.githubusercontent.com/Selene-External/Selene/main/selene" -o "$INSTALL_DIR/selene" 2>/dev/null || {
+    echo "[*] Downloading selene and assets..."
+    REPO="Selene-External/Selene"
+    ZIP_URL="https://github.com/$REPO/archive/refs/heads/main.zip"
+    
+    curl -fSL -o "$INSTALL_DIR/selene_install.zip" "$ZIP_URL" 2>/dev/null || {
         echo "[-] Failed to download selene."
     }
+    
+    if [ -f "$INSTALL_DIR/selene_install.zip" ]; then
+        cd "$INSTALL_DIR"
+        unzip -q -o selene_install.zip "Selene-main/selene" -j -d .
+        unzip -q -o selene_install.zip "Selene-main/assets/*" -d .
+        if [ -d "Selene-main/assets" ]; then
+            cp -rf Selene-main/assets/* assets/ 2>/dev/null || true
+            rm -rf Selene-main
+        fi
+        rm -f selene_install.zip
+        cd - > /dev/null
+    fi
 fi
 
 chmod +x "$INSTALL_DIR/selene" 2>/dev/null || true
